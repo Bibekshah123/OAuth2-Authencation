@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Secure System{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Optional Custom CSS -->
+    <style>
+        body {
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #fff;
+            box-shadow:
+                0 2px 6px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #0d6efd !important;
+            letter-spacing: 0.05em;
+        }
+        .nav-link {
+            font-weight: 600;
+            color: #495057 !important;
+            transition: color 0.2s ease;
+        }
+        .nav-link:hover {
+            color: #0d6efd !important;
+            text-decoration: underline;
+        }
+
+        /* Main content wrapper */
+        main.container {
+            flex: 1 0 auto;
+            max-width: 900px;
+            background-color: #ffffffdd;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            padding: 2.5rem 3rem;
+            border-radius: 20px;
+            box-shadow:
+                0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Footer */
+        footer {
+            flex-shrink: 0;
+            padding: 1rem 0;
+            background-color: #f1f1f1;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #6c757d;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            main.container {
+                padding: 1.5rem 1.5rem;
+                margin: 1rem;
+            }
+        }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Sachin Shahi</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{ user.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="container">
+    {% block content %}
+    <!-- Page-specific content goes here -->
+    {% endblock %}
+</main>
+
+<!-- Footer -->
+<footer>
+    &copy; {{ year|default:"2025" }} Secure System. All rights reserved.
+</footer>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+{% block extra_script %}{% endblock %}
+</body>
+</html>
