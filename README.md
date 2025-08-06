@@ -74,7 +74,7 @@ The Secure System is a robust and scalable web application built using Python, D
 
 👤 Author:
 
-* [Your Name]
+* Bibek Shah
 
 📝 License:
 
